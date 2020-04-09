@@ -25,6 +25,13 @@ if(session.getAttribute("uname") == null){
     
     Class.forName("com.mysql.jdbc.Driver");
     Connection con = DriverManager.getConnection(url,uname,pass);
+    Statement s = con.createStatement();
+    try{
+    s.execute("create table student(rollno varchar(5) PRIMARY KEY,name varchar(50),class varchar(5),sex varchar(50));");
+    }
+    catch(Exception e){
+    	System.out.print("table alredy exist");
+    }
     PreparedStatement st = con.prepareStatement("insert into student values(?,?,?,?)");
     st.setString(1,request.getParameter("id"));
     st.setString(2,request.getParameter("name"));	
